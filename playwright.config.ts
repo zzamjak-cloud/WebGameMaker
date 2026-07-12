@@ -23,7 +23,7 @@ export default defineConfig({
   webServer: {
     command: `pnpm --filter @web-game-maker/player build && pnpm --filter @web-game-maker/player preview --host ${host} --port ${port} --base ${basePath}`,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
   },
   projects: [
