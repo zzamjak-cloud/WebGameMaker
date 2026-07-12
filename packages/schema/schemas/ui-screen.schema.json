@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "StableId",
+      "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "viewport": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "height": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ],
+      "additionalProperties": false
+    },
+    "elements": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "title": "StableId",
+            "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "text",
+              "bar",
+              "icon",
+              "button",
+              "group"
+            ]
+          },
+          "anchor": {
+            "type": "string",
+            "enum": [
+              "top-left",
+              "top-center",
+              "top-right",
+              "center-left",
+              "center",
+              "center-right",
+              "bottom-left",
+              "bottom-center",
+              "bottom-right"
+            ]
+          },
+          "offset": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ],
+            "additionalProperties": false
+          },
+          "bindingKey": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "anchor",
+          "offset"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "viewport",
+    "elements"
+  ],
+  "additionalProperties": false,
+  "title": "UiScreen",
+  "description": "게임 HUD/결과 화면 레이아웃 계약",
+  "$id": "https://schemas.web-game-maker.dev/v1/ui-screen.schema.json"
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "module.scene-transition",
+  "version": "1.0.0",
+  "category": "scene",
+  "description": "조건 기반 장면 전환 (스텁)",
+  "tags": ["p0", "scene"],
+  "engine": { "name": "phaser", "minimumVersion": "4.2.1" },
+  "minimumSchemaVersion": 1,
+  "configSchemaId": "config.scene-transition",
+  "requiredCapabilities": ["eventBus"],
+  "emits": ["scene.transition"],
+  "listens": [],
+  "dependencies": []
+}

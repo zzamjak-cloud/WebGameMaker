@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "StableId",
+      "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "tags": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      }
+    },
+    "engine": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "minimumVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      },
+      "required": [
+        "name",
+        "minimumVersion"
+      ],
+      "additionalProperties": false
+    },
+    "minimumSchemaVersion": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+    },
+    "configSchemaId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "StableId",
+      "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+    },
+    "requiredCapabilities": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "input",
+          "clock",
+          "random",
+          "eventBus",
+          "assets",
+          "physics"
+        ]
+      }
+    },
+    "emits": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    },
+    "listens": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128
+      }
+    },
+    "dependencies": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+        "title": "StableId",
+        "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "category",
+    "description",
+    "tags",
+    "engine",
+    "minimumSchemaVersion",
+    "configSchemaId",
+    "requiredCapabilities",
+    "emits",
+    "listens",
+    "dependencies"
+  ],
+  "additionalProperties": false,
+  "title": "ModuleManifest",
+  "description": "공용 행동 모듈 선언과 capability 계약",
+  "$id": "https://schemas.web-game-maker.dev/v1/module-manifest.schema.json"
+}

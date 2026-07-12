@@ -213,4 +213,16 @@ describe("재사용 비용 측정", () => {
     expect(parseCliOptions(["--", "--write-baseline"]).mode).toBe("write");
     expect(() => parseCliOptions(["--check", "--write-baseline"])).toThrow(/함께 사용할 수/);
   });
+
+  test("Phase 1 추출 전 기준선 스냅샷은 불변이다", async () => {
+    const phase1 = JSON.parse(
+      await readFile(
+        new URL("./reuse-baseline.phase-1.json", import.meta.url),
+        "utf8",
+      ),
+    ) as { commonGameplayLoc: number; manualSetupSteps: number; baselineId: string };
+    expect(phase1.baselineId).toBe("phase1.game.floodgate-07.pre-extraction");
+    expect(phase1.commonGameplayLoc).toBe(390);
+    expect(phase1.manualSetupSteps).toBe(10);
+  });
 });

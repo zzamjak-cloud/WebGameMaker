@@ -41,6 +41,9 @@ importers:
 
   apps/player:
     dependencies:
+      '@web-game-maker/floodgate-07':
+        specifier: workspace:*
+        version: link:../../games/floodgate-07
       phaser:
         specifier: 4.2.1
         version: 4.2.1
@@ -66,6 +69,70 @@ importers:
       vite:
         specifier: 8.1.4
         version: 8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.0)
+      vitest:
+        specifier: 4.1.10
+        version: 4.1.10(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.0))
+
+  games/floodgate-07:
+    dependencies:
+      '@web-game-maker/core-modules':
+        specifier: workspace:*
+        version: link:../../packages/core-modules
+      '@web-game-maker/schema':
+        specifier: workspace:*
+        version: link:../../packages/schema
+    devDependencies:
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: 4.1.10
+        version: 4.1.10(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.0))
+
+  packages/core-modules:
+    dependencies:
+      '@web-game-maker/module-sdk':
+        specifier: workspace:*
+        version: link:../module-sdk
+      '@web-game-maker/schema':
+        specifier: workspace:*
+        version: link:../schema
+    devDependencies:
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: 4.1.10
+        version: 4.1.10(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.0))
+
+  packages/module-sdk:
+    dependencies:
+      '@web-game-maker/schema':
+        specifier: workspace:*
+        version: link:../schema
+    devDependencies:
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: 4.1.10
+        version: 4.1.10(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.0))
+
+  packages/runtime:
+    dependencies:
+      '@web-game-maker/core-modules':
+        specifier: workspace:*
+        version: link:../core-modules
+      '@web-game-maker/module-sdk':
+        specifier: workspace:*
+        version: link:../module-sdk
+      '@web-game-maker/schema':
+        specifier: workspace:*
+        version: link:../schema
+    devDependencies:
+      typescript:
+        specifier: 6.0.3
+        version: 6.0.3
       vitest:
         specifier: 4.1.10
         version: 4.1.10(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(vite@8.1.4(@types/node@24.13.3)(esbuild@0.28.1)(tsx@4.23.0))

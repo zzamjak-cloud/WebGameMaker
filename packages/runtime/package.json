@@ -1,30 +1,28 @@
 {
-  "name": "@web-game-maker/floodgate-07",
+  "name": "@web-game-maker/runtime",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "sideEffects": false,
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     }
   },
   "scripts": {
     "prebuild": "pnpm --filter @web-game-maker/core-modules build",
     "build": "tsc -p tsconfig.build.json",
-    "pretest": "pnpm --filter @web-game-maker/core-modules build && tsc -p tsconfig.build.json",
-    "test": "vitest run && pnpm run test:exports",
-    "test:exports": "node scripts/test-exports.mjs",
+    "lint": "tsc --noEmit -p tsconfig.json --pretty false",
+    "pretest": "pnpm run build",
+    "test": "vitest run",
     "pretypecheck": "pnpm --filter @web-game-maker/core-modules build",
     "typecheck": "tsc --noEmit -p tsconfig.json --pretty false"
   },
   "dependencies": {
     "@web-game-maker/core-modules": "workspace:*",
+    "@web-game-maker/module-sdk": "workspace:*",
     "@web-game-maker/schema": "workspace:*"
   },
   "devDependencies": {

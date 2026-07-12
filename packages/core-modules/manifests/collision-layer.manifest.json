@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "module.collision-layer",
+  "version": "1.0.0",
+  "category": "physics",
+  "description": "충돌 그룹 설정 (스텁)",
+  "tags": ["p0", "physics"],
+  "engine": { "name": "phaser", "minimumVersion": "4.2.1" },
+  "minimumSchemaVersion": 1,
+  "configSchemaId": "config.collision-layer",
+  "requiredCapabilities": ["physics"],
+  "emits": [],
+  "listens": [],
+  "dependencies": []
+}

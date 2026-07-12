@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "module.damage-contact",
+  "version": "1.0.0",
+  "category": "combat",
+  "description": "접촉 피해와 무적 시간",
+  "tags": ["p0", "combat"],
+  "engine": { "name": "phaser", "minimumVersion": "4.2.1" },
+  "minimumSchemaVersion": 1,
+  "configSchemaId": "config.damage-contact",
+  "requiredCapabilities": ["clock", "eventBus"],
+  "emits": ["damage.applied"],
+  "listens": [],
+  "dependencies": ["module.health"]
+}

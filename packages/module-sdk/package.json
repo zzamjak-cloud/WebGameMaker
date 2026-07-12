@@ -1,0 +1,27 @@
+{
+  "name": "@web-game-maker/module-sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "tsc --noEmit -p tsconfig.json --pretty false",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@web-game-maker/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

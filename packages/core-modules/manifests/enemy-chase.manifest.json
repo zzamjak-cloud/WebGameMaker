@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "module.enemy-chase",
+  "version": "1.0.0",
+  "category": "ai",
+  "description": "감지 거리 기반 추적과 복귀",
+  "tags": ["p0", "ai"],
+  "engine": { "name": "phaser", "minimumVersion": "4.2.1" },
+  "minimumSchemaVersion": 1,
+  "configSchemaId": "config.enemy-chase",
+  "requiredCapabilities": ["clock"],
+  "emits": [],
+  "listens": [],
+  "dependencies": []
+}

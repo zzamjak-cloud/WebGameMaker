@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "module.player-move-2d",
+  "version": "1.0.0",
+  "category": "movement",
+  "description": "2D 탑다운 키보드 이동과 속도 정규화",
+  "tags": ["p0", "movement"],
+  "engine": { "name": "phaser", "minimumVersion": "4.2.1" },
+  "minimumSchemaVersion": 1,
+  "configSchemaId": "config.player-move-2d",
+  "requiredCapabilities": ["input", "clock"],
+  "emits": [],
+  "listens": [],
+  "dependencies": []
+}

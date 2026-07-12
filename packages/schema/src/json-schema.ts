@@ -1,12 +1,15 @@
 import { z } from "zod";
 
+import { AssetSchema } from "./asset.js";
 import { EntitySchema } from "./entity.js";
 import { GameProjectSchema } from "./game-project.js";
 import { ModuleBindingSchema } from "./module-binding.js";
+import { ModuleManifestSchema } from "./module-manifest.js";
 import { ProjectBundleStructureSchema } from "./project-bundle.js";
 import { SceneSchema } from "./scene.js";
 import { StableIdSchema } from "./stable-id.js";
 import { TransformSchema } from "./transform.js";
+import { UiScreenSchema } from "./ui-screen.js";
 
 export const JSON_SCHEMA_FILES = {
   stableId: "stable-id.schema.json",
@@ -16,6 +19,9 @@ export const JSON_SCHEMA_FILES = {
   scene: "scene.schema.json",
   gameProject: "game-project.schema.json",
   projectBundle: "project-bundle.schema.json",
+  asset: "asset.schema.json",
+  moduleManifest: "module-manifest.schema.json",
+  uiScreen: "ui-screen.schema.json",
 } as const;
 
 export type JsonSchemaName = keyof typeof JSON_SCHEMA_FILES;
@@ -45,5 +51,11 @@ export function generateJsonSchemas(): Record<
       "projectBundle",
       ProjectBundleStructureSchema,
     ),
+    asset: generateJsonSchema("asset", AssetSchema),
+    moduleManifest: generateJsonSchema(
+      "moduleManifest",
+      ModuleManifestSchema,
+    ),
+    uiScreen: generateJsonSchema("uiScreen", UiScreenSchema),
   };
 }

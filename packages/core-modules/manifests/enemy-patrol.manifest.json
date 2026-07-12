@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "module.enemy-patrol",
+  "version": "1.0.0",
+  "category": "ai",
+  "description": "축 기반 구간 순찰",
+  "tags": ["p0", "ai"],
+  "engine": { "name": "phaser", "minimumVersion": "4.2.1" },
+  "minimumSchemaVersion": 1,
+  "configSchemaId": "config.enemy-patrol",
+  "requiredCapabilities": ["clock"],
+  "emits": [],
+  "listens": [],
+  "dependencies": []
+}

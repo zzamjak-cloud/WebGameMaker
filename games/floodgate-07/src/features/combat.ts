@@ -1,3 +1,8 @@
+import {
+  resolveContactDamage,
+  type Position as CorePosition,
+} from "@web-game-maker/core-modules";
+
 import type { SearchlightConfig } from "../compileProject.js";
 import type {
   EnemyState,
@@ -17,34 +22,39 @@ function assertNonNegativeFinite(value: number, name: string): void {
   }
 }
 
+/** 공용 damage-contact 모듈 결과를 게임 상태에 반영한다. */
 export function applyContactDamage(
   state: GameState,
   input: ContactDamageInput,
 ): GameState {
-  assertNonNegativeFinite(input.damage, "damage");
-  assertNonNegativeFinite(input.nowMs, "nowMs");
-  assertNonNegativeFinite(input.invulnerabilityMs, "invulnerabilityMs");
-  if (
-    state.phase !== "playing" ||
-    input.damage === 0 ||
-    input.nowMs < state.player.invulnerableUntil
-  ) {
+  if (state.phase !== "playing") {
     return state;
   }
 
-  const health = Math.max(0, state.player.health - input.damage);
+  const result = resolveContactDamage({
+    health: state.player.health,
+    maximumHealth: state.player.maxHealth,
+    invulnerableUntil: state.player.invulnerableUntil,
+    damage: input.damage,
+    nowMs: input.nowMs,
+    invulnerabilityMs: input.invulnerabilityMs,
+  });
+  if (!result) {
+    return state;
+  }
+
   return {
     ...state,
-    phase: health === 0 ? "lost" : state.phase,
+    phase: result.depleted ? "lost" : state.phase,
     player: {
       ...state.player,
-      health,
-      invulnerableUntil: input.nowMs + input.invulnerabilityMs,
+      health: result.health,
+      invulnerableUntil: result.invulnerableUntil,
     },
   };
 }
 
-function facingVector(facing: Facing): { x: number; y: number } {
+function facingVector(facing: Facing): CorePosition {
   switch (facing) {
     case "up":
       return { x: 0, y: -1 };

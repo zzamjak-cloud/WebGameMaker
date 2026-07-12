@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "module.health",
+  "version": "1.0.0",
+  "category": "combat",
+  "description": "최대/현재 체력과 피해·회복",
+  "tags": ["p0", "combat"],
+  "engine": { "name": "phaser", "minimumVersion": "4.2.1" },
+  "minimumSchemaVersion": 1,
+  "configSchemaId": "config.health",
+  "requiredCapabilities": ["eventBus"],
+  "emits": ["health.changed", "health.depleted"],
+  "listens": ["health.damage", "health.heal"],
+  "dependencies": []
+}

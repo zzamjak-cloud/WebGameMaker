@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "module.camera-follow",
+  "version": "1.0.0",
+  "category": "camera",
+  "description": "대상 추적 카메라 (스텁)",
+  "tags": ["p0", "camera"],
+  "engine": { "name": "phaser", "minimumVersion": "4.2.1" },
+  "minimumSchemaVersion": 1,
+  "configSchemaId": "config.camera-follow",
+  "requiredCapabilities": ["clock"],
+  "emits": [],
+  "listens": [],
+  "dependencies": []
+}
