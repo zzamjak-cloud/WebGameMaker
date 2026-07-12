@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+z.config({ jitless: true });
+
 export const Vector2Schema = z
   .strictObject({
     x: z.number().finite(),

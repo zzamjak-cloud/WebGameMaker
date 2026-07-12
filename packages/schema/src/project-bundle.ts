@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+z.config({ jitless: true });
+
 import { GameProjectSchema } from "./game-project.js";
 import { SceneSchema, type Scene } from "./scene.js";
 

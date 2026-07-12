@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { STUDIO_ASSETS, STUDIO_MODULES, STUDIO_PROJECTS } from './studioData';
 import {
-  createPreviewSrcDoc,
+  createPreviewSrc,
   isPreviewMessage,
   postPreviewSnapshot,
   requestPreviewCleanup,
@@ -77,8 +77,8 @@ export function StudioView() {
     () => buildPreviewSnapshot(project, draft),
     [draft, project],
   );
-  const previewSrcDoc = useMemo(
-    () => createPreviewSrcDoc(previewRunId),
+  const previewSrc = useMemo(
+    () => createPreviewSrc(previewRunId),
     [previewRunId],
   );
 
@@ -309,8 +309,8 @@ export function StudioView() {
             ref={frameRef}
             className="studio-preview-frame"
             title="Studio play preview"
-            sandbox="allow-scripts"
-            srcDoc={previewSrcDoc}
+            sandbox="allow-scripts allow-same-origin"
+            src={previewSrc}
             data-testid="studio-preview-frame"
             onLoad={() => postPreviewSnapshot(frameRef.current, previewSnapshot)}
           />

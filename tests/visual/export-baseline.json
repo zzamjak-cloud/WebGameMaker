@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "tests/e2e/export-static.spec.ts",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "samples": {
+    "topdown-action": {
+      "path": "./?e2e=1",
+      "width": 1280,
+      "height": 720,
+      "sha256": "sha256:60082a1d1f4f2f3aa63fe72e3dbac01df6c3a2b59b52f28fbe423dc0766cc92d"
+    },
+    "studio": {
+      "path": "./?view=studio",
+      "width": 1280,
+      "height": 720,
+      "sha256": "sha256:10505666a50739ee98237f02b405d7a107a069a640ea0198396ca580b33f984e"
+    },
+    "compat": {
+      "path": "./?view=compat",
+      "width": 1280,
+      "height": 720,
+      "sha256": "sha256:b34c39e0018ad6468de82a8134bc2d0b4e5974e46e9d7eca933494040b9850d6"
+    }
+  }
+}

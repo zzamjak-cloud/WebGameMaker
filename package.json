@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "pnpm -r --parallel --if-present run dev",
     "lint": "eslint . --max-warnings 0",
-    "typecheck": "pnpm -r --if-present run typecheck && tsc --project tsconfig.json",
+    "typecheck": "pnpm -r --workspace-concurrency=1 --if-present run typecheck && tsc --project tsconfig.json",
     "test": "pnpm -r --if-present run test && pnpm test:benchmarks",
     "test:benchmarks": "vitest run tests/benchmarks",
     "test:designs": "pnpm --filter @web-game-maker/project-cli test",
@@ -26,9 +26,15 @@
     "seed:assets": "tsx packages/asset-tools/scripts/seed-library-assets.ts",
     "measure:reuse": "tsx tests/benchmarks/measure-reuse.ts",
     "measure:reuse:phase4": "tsx tests/benchmarks/phase4-reuse-gate.ts",
+    "export:player": "pnpm --filter @web-game-maker/player build && node scripts/export-player.mjs",
+    "verify:export": "pnpm export:player && node scripts/verify-export.mjs",
+    "serve:export": "node scripts/serve-static-export.mjs --dir exports/player-static --base /release/checkpoint/ --port 4273",
     "test:e2e": "playwright test",
+    "test:e2e:export": "playwright test -c playwright.export.config.ts",
     "e2e": "pnpm test:e2e",
-    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm coverage && pnpm generate:schemas && pnpm validate:fixture && pnpm validate:games && pnpm measure:reuse -- --check && pnpm measure:reuse:phase4 && pnpm build && pnpm e2e"
+    "e2e:export": "pnpm test:e2e:export",
+    "visual:update:export": "UPDATE_EXPORT_VISUAL_BASELINE=1 pnpm test:e2e:export --grep @export-visual --project chromium",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm coverage && pnpm generate:schemas && pnpm validate:fixture && pnpm validate:games && pnpm measure:reuse -- --check && pnpm measure:reuse:phase4 && pnpm build && pnpm verify:export && pnpm e2e && pnpm e2e:export"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

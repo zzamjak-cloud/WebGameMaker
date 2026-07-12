@@ -1,0 +1,43 @@
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #101820;
+  color: #f7f2df;
+  font: 13px system-ui, sans-serif;
+}
+
+#root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hud {
+  position: absolute;
+  min-width: 180px;
+  padding: 10px 12px;
+  border: 1px solid rgba(247, 242, 223, 0.5);
+  background: rgba(16, 24, 32, 0.78);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.18);
+}
+
+.hud strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.hud span {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+}

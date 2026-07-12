@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+z.config({ jitless: true });
+
 import { ModuleBindingSchema } from "./module-binding.js";
 import { StableIdSchema } from "./stable-id.js";
 import { TransformSchema } from "./transform.js";

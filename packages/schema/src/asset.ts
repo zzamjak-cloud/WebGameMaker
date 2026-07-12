@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+z.config({ jitless: true });
+
 import { StableIdSchema } from "./stable-id.js";
 
 export const AssetTypeSchema = z.enum(["image", "audio", "font", "other"]);

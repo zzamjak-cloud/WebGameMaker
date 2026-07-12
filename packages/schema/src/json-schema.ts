@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+z.config({ jitless: true });
+
 import { AssetSchema } from "./asset.js";
 import { EntitySchema } from "./entity.js";
 import { GameProjectSchema } from "./game-project.js";

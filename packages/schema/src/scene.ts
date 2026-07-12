@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+z.config({ jitless: true });
+
 import { EntitySchema } from "./entity.js";
 import { StableIdSchema } from "./stable-id.js";
 
