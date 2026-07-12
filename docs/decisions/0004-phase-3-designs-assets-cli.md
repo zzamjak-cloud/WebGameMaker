@@ -23,4 +23,4 @@ Phase 2까지 게임 JSON과 공용 모듈은 준비됐지만, 기획 문서 풀
 ## 남은 범위
 
 - 실제 썸네일 리샘플·파생 WebP 파이프라인
-- `wgm module create/promote`와 Studio 연동은 Phase 4–5
+- `wgm module create/promote`와 Studio 연동은 Phase 5 이후

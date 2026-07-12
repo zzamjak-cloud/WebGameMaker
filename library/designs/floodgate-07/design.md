@@ -45,7 +45,7 @@ React HUD로 체력·신호등·렌즈 열·결과 오버레이를 표시한다.
 
 ## 8. 재사용할 기존 모듈·에셋
 
-`module.player-move-2d`, `module.health`, `module.enemy-patrol`, `module.enemy-chase`, `module.damage-contact`.
+`module.player-move-2d`, `module.camera-follow`, `module.health`, `module.enemy-patrol`, `module.enemy-chase`, `module.collision-layer`, `module.damage-contact`.
 
 ## 9. 새로 구현할 기능과 공용화 후보
 

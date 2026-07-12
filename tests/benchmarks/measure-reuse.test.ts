@@ -12,6 +12,7 @@ import {
   parseReuseRecipe,
   writeBaseline,
 } from "./measure-reuse.js";
+import { verifyPhase4ReuseGate } from "./phase4-reuse-gate.js";
 
 async function createFile(root: string, path: string, content: string): Promise<void> {
   const absolutePath = join(root, path);
@@ -224,5 +225,16 @@ describe("재사용 비용 측정", () => {
     expect(phase1.baselineId).toBe("phase1.game.floodgate-07.pre-extraction");
     expect(phase1.commonGameplayLoc).toBe(390);
     expect(phase1.manualSetupSteps).toBe(10);
+  });
+
+  test("Phase 4 두 번째 게임은 Phase 1 대비 제작량을 50% 이상 줄인다", async () => {
+    const report = await verifyPhase4ReuseGate();
+
+    expect(report.phase4.commonGameplayLoc).toBeLessThanOrEqual(195);
+    expect(report.phase4.manualSetupSteps).toBeLessThanOrEqual(5);
+    expect(report.locReductionRatio).toBeGreaterThanOrEqual(0.5);
+    expect(report.stepReductionRatio).toBeGreaterThanOrEqual(0.5);
+    expect(report.requiredModules).toContain("module.camera-follow");
+    expect(report.requiredModules).toContain("module.collision-layer");
   });
 });

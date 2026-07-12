@@ -12,6 +12,7 @@
 - Phase 1 탑다운 수직 절편 `수문 07 — 마지막 등불`
 - Phase 2 모듈 SDK·공용 P0 모듈
 - Phase 3 기획·에셋 풀과 `wgm` CLI
+- Phase 4 두 번째 탑다운 게임 `Relay Ward — 마지막 전송` 재사용 증명
 
 ## 바로 실행
 
@@ -47,6 +48,7 @@ pnpm verify
 | `pnpm wgm validate examples/minimal` | 프로젝트와 장면 bundle 교차 참조 검증 |
 | `pnpm validate:games` | 실제 게임 프로젝트 schema·참조 검증 |
 | `pnpm measure:reuse -- --check` | Phase 1 재사용 비용 기준선 drift 검사 |
+| `pnpm measure:reuse:phase4` | 두 번째 게임 재사용 감소율·중복·import 금지 검사 |
 | `pnpm e2e` | Playwright 브라우저 검증 실행 |
 | `pnpm e2e --grep @vertical-slice` | 시작→승패→재시작 수직 절편 검증 |
 | `pnpm e2e --grep @smoke` | 3개 브라우저 호환성 회귀 검증 |
@@ -56,7 +58,7 @@ pnpm verify
 ## 워크스페이스
 
 - `apps/`: Studio와 게임 player 같은 실행 앱
-- `games/`: 추출 전 게임별 JSON과 gameplay 기능
+- `games/`: 게임별 JSON과 gameplay 기능. `floodgate-07`은 첫 수직 절편, `relay-ward`는 Phase 4 재사용 증명 게임이다.
 - `library/`: 기획 문서 풀과 아트 리소스 풀
 - `packages/`: 스키마·모듈·에셋 도구·CLI 공용 계약
 - `tests/benchmarks/`: 재사용 비용 측정과 Phase 1 기준선
@@ -75,3 +77,4 @@ pnpm verify
 | `pnpm wgm asset import <path> --id asset.* --tag <tag>` | 이미지 에셋 등록 |
 | `pnpm wgm game create game.<id>` | 게임·기획 골격 생성 |
 | `pnpm test:designs` / `pnpm test:assets` | Phase 3 게이트 테스트 |
+| `pnpm --filter @web-game-maker/relay-ward test` | Phase 4 두 번째 게임 계약·규칙 테스트 |

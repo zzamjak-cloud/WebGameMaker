@@ -22,12 +22,13 @@
     "generate:schemas": "pnpm --filter @web-game-maker/schema generate:schemas",
     "wgm": "tsx packages/project-cli/src/cli.ts",
     "validate:fixture": "pnpm wgm validate examples/minimal",
-    "validate:games": "pnpm wgm validate games/floodgate-07",
+    "validate:games": "pnpm wgm validate games/floodgate-07 && pnpm wgm validate games/relay-ward",
     "seed:assets": "tsx packages/asset-tools/scripts/seed-library-assets.ts",
     "measure:reuse": "tsx tests/benchmarks/measure-reuse.ts",
+    "measure:reuse:phase4": "tsx tests/benchmarks/phase4-reuse-gate.ts",
     "test:e2e": "playwright test",
     "e2e": "pnpm test:e2e",
-    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm coverage && pnpm generate:schemas && pnpm validate:fixture && pnpm validate:games && pnpm measure:reuse -- --check && pnpm build && pnpm e2e"
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm coverage && pnpm generate:schemas && pnpm validate:fixture && pnpm validate:games && pnpm measure:reuse -- --check && pnpm measure:reuse:phase4 && pnpm build && pnpm e2e"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

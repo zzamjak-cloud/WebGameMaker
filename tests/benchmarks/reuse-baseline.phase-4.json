@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "metricVersion": "reuse-v1",
+  "baselineId": "phase1.game.relay-ward.pre-extraction",
+  "gameId": "game.relay-ward",
+  "acceptanceProfile": "topdown-reuse-proof-v1",
+  "commonGameplayLoc": 149,
+  "manualSetupSteps": 4,
+  "inputs": {
+    "sourceRoot": "games/relay-ward/src/gameplay",
+    "recipe": "games/relay-ward/reuse-recipe.json",
+    "sourceDigest": "sha256:5c0ce1976895bfd3e5ead19c2cb89a70133672f29ace7d821843220796466611",
+    "recipeDigest": "sha256:04605b2b49e8a43a91aaed8609fa468a424aba28f279b8c0979abd8a260bb38c"
+  },
+  "breakdown": {
+    "files": [
+      {
+        "path": "games/relay-ward/src/gameplay/relayRules.ts",
+        "loc": 149,
+        "digest": "sha256:d52f95f3b64433337bc55ff2314e5a840619c0e858ac153103a177f96a315f75"
+      }
+    ],
+    "actionIds": [
+      "define-project",
+      "define-scene",
+      "implement-relay-rules",
+      "verify-relay-game"
+    ]
+  }
+}

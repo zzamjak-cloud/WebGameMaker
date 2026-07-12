@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "id": "scene.relay-ward-main",
+  "name": "Relay Ward 송신 구역",
+  "type": "world",
+  "entities": [
+    {
+      "schemaVersion": 1,
+      "id": "entity.relay-runner",
+      "name": "Relay Runner",
+      "transform": {
+        "position": { "x": 210, "y": 560 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.relay-runner-move",
+          "moduleId": "module.player-move-2d",
+          "enabled": true,
+          "config": { "speed": 285 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.relay-runner-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": { "maximum": 80, "current": 80 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.relay-runner-camera",
+          "moduleId": "module.camera-follow",
+          "enabled": true,
+          "targetEntityId": "entity.relay-runner",
+          "config": { "damping": 0.1, "deadZone": 88 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.relay-runner-collision",
+          "moduleId": "module.collision-layer",
+          "enabled": true,
+          "config": { "layer": "player", "mask": ["enemy", "relay", "world"] }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.relay-runner-pulse",
+          "moduleId": "module.relay-pulse",
+          "enabled": true,
+          "config": { "range": 120, "cooldownMs": 360 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.warden-01",
+      "name": "Warden 01",
+      "transform": {
+        "position": { "x": 460, "y": 450 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-01-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": { "maximum": 30, "current": 30 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-01-patrol",
+          "moduleId": "module.enemy-patrol",
+          "enabled": true,
+          "config": { "axis": "x", "distance": 150, "speed": 82 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-01-chase",
+          "moduleId": "module.enemy-chase",
+          "enabled": true,
+          "targetEntityId": "entity.relay-runner",
+          "config": {
+            "speed": 132,
+            "detectionDistance": 235,
+            "disengageDistance": 340,
+            "stopDistance": 30
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-01-contact",
+          "moduleId": "module.damage-contact",
+          "enabled": true,
+          "targetEntityId": "entity.relay-runner",
+          "config": { "damage": 16, "cooldownMs": 680 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.warden-02",
+      "name": "Warden 02",
+      "transform": {
+        "position": { "x": 760, "y": 360 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-02-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": { "maximum": 30, "current": 30 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-02-patrol",
+          "moduleId": "module.enemy-patrol",
+          "enabled": true,
+          "config": { "axis": "y", "distance": 130, "speed": 78 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-02-chase",
+          "moduleId": "module.enemy-chase",
+          "enabled": true,
+          "targetEntityId": "entity.relay-runner",
+          "config": {
+            "speed": 138,
+            "detectionDistance": 245,
+            "disengageDistance": 350,
+            "stopDistance": 30
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-02-contact",
+          "moduleId": "module.damage-contact",
+          "enabled": true,
+          "targetEntityId": "entity.relay-runner",
+          "config": { "damage": 18, "cooldownMs": 720 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.warden-03",
+      "name": "Warden 03",
+      "transform": {
+        "position": { "x": 1010, "y": 470 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-03-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": { "maximum": 30, "current": 30 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-03-patrol",
+          "moduleId": "module.enemy-patrol",
+          "enabled": true,
+          "config": { "axis": "x", "distance": 135, "speed": 86 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-03-chase",
+          "moduleId": "module.enemy-chase",
+          "enabled": true,
+          "targetEntityId": "entity.relay-runner",
+          "config": {
+            "speed": 142,
+            "detectionDistance": 255,
+            "disengageDistance": 360,
+            "stopDistance": 30
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.warden-03-contact",
+          "moduleId": "module.damage-contact",
+          "enabled": true,
+          "targetEntityId": "entity.relay-runner",
+          "config": { "damage": 18, "cooldownMs": 720 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.relay-node-01",
+      "name": "Relay Node 01",
+      "transform": {
+        "position": { "x": 360, "y": 170 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.relay-node-01",
+          "moduleId": "module.relay-node",
+          "enabled": true,
+          "config": { "order": 1 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.relay-node-02",
+      "name": "Relay Node 02",
+      "transform": {
+        "position": { "x": 690, "y": 130 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.relay-node-02",
+          "moduleId": "module.relay-node",
+          "enabled": true,
+          "config": { "order": 2 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.relay-node-03",
+      "name": "Relay Node 03",
+      "transform": {
+        "position": { "x": 1010, "y": 175 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.relay-node-03",
+          "moduleId": "module.relay-node",
+          "enabled": true,
+          "config": { "order": 3 }
+        }
+      ]
+    }
+  ]
+}

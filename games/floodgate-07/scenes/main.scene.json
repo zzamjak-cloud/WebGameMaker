@@ -35,6 +35,27 @@
         },
         {
           "schemaVersion": 1,
+          "id": "binding.player-camera",
+          "moduleId": "module.camera-follow",
+          "enabled": true,
+          "targetEntityId": "entity.maintenance-drone",
+          "config": {
+            "damping": 0.12,
+            "deadZone": 96
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.player-collision",
+          "moduleId": "module.collision-layer",
+          "enabled": true,
+          "config": {
+            "layer": "player",
+            "mask": ["enemy", "world"]
+          }
+        },
+        {
+          "schemaVersion": 1,
           "id": "binding.player-searchlight",
           "moduleId": "module.searchlight-pulse",
           "enabled": true,

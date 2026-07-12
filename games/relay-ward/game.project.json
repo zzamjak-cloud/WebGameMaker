@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "game.relay-ward",
+  "name": "Relay Ward — 마지막 전송",
+  "designId": "design.relay-ward",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "entrySceneId": "scene.relay-ward-main",
+  "sceneIds": [
+    "scene.relay-ward-main"
+  ]
+}

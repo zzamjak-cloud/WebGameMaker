@@ -1,0 +1,34 @@
+{
+  "name": "@web-game-maker/relay-ward",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "development": "./src/index.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "prebuild": "pnpm --filter @web-game-maker/core-modules build",
+    "build": "tsc -p tsconfig.build.json",
+    "pretest": "pnpm --filter @web-game-maker/core-modules build && tsc -p tsconfig.build.json",
+    "test": "vitest run && pnpm run test:exports",
+    "test:exports": "node scripts/test-exports.mjs",
+    "pretypecheck": "pnpm --filter @web-game-maker/core-modules build",
+    "typecheck": "tsc --noEmit -p tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@web-game-maker/core-modules": "workspace:*",
+    "@web-game-maker/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

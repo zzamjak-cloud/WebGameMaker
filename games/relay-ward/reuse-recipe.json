@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "gameId": "game.relay-ward",
+  "acceptanceProfile": "topdown-reuse-proof-v1",
+  "cleanScaffold": "phase-3-schema-modules-design-assets-cli",
+  "actions": [
+    {
+      "id": "define-project",
+      "kind": "file",
+      "path": "games/relay-ward/game.project.json"
+    },
+    {
+      "id": "define-scene",
+      "kind": "file",
+      "path": "games/relay-ward/scenes/main.scene.json"
+    },
+    {
+      "id": "implement-relay-rules",
+      "kind": "code",
+      "path": "games/relay-ward/src/gameplay/relayRules.ts"
+    },
+    {
+      "id": "verify-relay-game",
+      "kind": "test",
+      "path": "games/relay-ward/tests/relayRules.test.ts"
+    }
+  ],
+  "verification": {
+    "argv": [
+      "pnpm",
+      "--filter",
+      "@web-game-maker/relay-ward",
+      "test"
+    ],
+    "expectedExitCode": 0
+  }
+}
