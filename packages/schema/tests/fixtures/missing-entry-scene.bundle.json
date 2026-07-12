@@ -1,0 +1,26 @@
+{
+  "project": {
+    "schemaVersion": 1,
+    "id": "game.fixture",
+    "name": "없는 진입 장면 fixture",
+    "designId": "design.fixture",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "entrySceneId": "scene.missing",
+    "sceneIds": [
+      "scene.main",
+      "scene.missing"
+    ]
+  },
+  "scenes": [
+    {
+      "schemaVersion": 1,
+      "id": "scene.main",
+      "name": "메인 월드",
+      "type": "world",
+      "entities": []
+    }
+  ]
+}

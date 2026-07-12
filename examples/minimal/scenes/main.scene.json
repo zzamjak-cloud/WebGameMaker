@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "id": "scene.main",
+  "name": "탑다운 액션 월드",
+  "type": "world",
+  "entities": [
+    {
+      "schemaVersion": 1,
+      "id": "entity.player",
+      "name": "플레이어",
+      "transform": {
+        "position": {
+          "x": 640,
+          "y": 360
+        },
+        "rotation": 0,
+        "scale": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.player-movement",
+          "moduleId": "module.topdown-movement",
+          "enabled": true,
+          "config": {
+            "speed": 240,
+            "inputPreset": "keyboard-wasd"
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.player-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": {
+            "maximum": 100,
+            "current": 100
+          }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.enemy-scout",
+      "name": "정찰 적",
+      "transform": {
+        "position": {
+          "x": 860,
+          "y": 360
+        },
+        "rotation": 0,
+        "scale": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-chase",
+          "moduleId": "module.chase-target",
+          "enabled": true,
+          "targetEntityId": "entity.player",
+          "config": {
+            "speed": 120,
+            "stopDistance": 32
+          }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.camera",
+      "name": "플레이 카메라",
+      "transform": {
+        "position": {
+          "x": 640,
+          "y": 360
+        },
+        "rotation": 0,
+        "scale": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.camera-follow",
+          "moduleId": "module.camera-follow",
+          "enabled": true,
+          "targetEntityId": "entity.player",
+          "config": {
+            "smoothing": 0.12
+          }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.hud-health",
+      "name": "체력 HUD",
+      "transform": {
+        "position": {
+          "x": 32,
+          "y": 32
+        },
+        "rotation": 0,
+        "scale": {
+          "x": 1,
+          "y": 1
+        }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.hud-health-bar",
+          "moduleId": "module.hud-health-bar",
+          "enabled": true,
+          "targetEntityId": "entity.player",
+          "config": {
+            "width": 240,
+            "height": 20,
+            "anchor": "top-left"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "number",
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "title": "StableId",
+      "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "world",
+        "ui"
+      ]
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "schemaVersion": {
+            "type": "number",
+            "const": 1
+          },
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "title": "StableId",
+            "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "parentId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+            "title": "StableId",
+            "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+          },
+          "transform": {
+            "type": "object",
+            "properties": {
+              "position": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ],
+                "additionalProperties": false,
+                "title": "Vector2",
+                "description": "2차원 좌표 또는 배율"
+              },
+              "rotation": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ],
+                "additionalProperties": false,
+                "title": "Vector2",
+                "description": "2차원 좌표 또는 배율"
+              }
+            },
+            "required": [
+              "position",
+              "rotation",
+              "scale"
+            ],
+            "additionalProperties": false,
+            "title": "Transform",
+            "description": "엔티티의 2차원 위치, 회전 라디안, 배율"
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "schemaVersion": {
+                  "type": "number",
+                  "const": 1
+                },
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+                  "title": "StableId",
+                  "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+                },
+                "moduleId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+                  "title": "StableId",
+                  "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "targetEntityId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+                  "title": "StableId",
+                  "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자"
+                },
+                "config": {
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string"
+                  },
+                  "additionalProperties": {
+                    "$ref": "#/$defs/__schema0"
+                  }
+                }
+              },
+              "required": [
+                "schemaVersion",
+                "id",
+                "moduleId",
+                "enabled",
+                "config"
+              ],
+              "additionalProperties": false,
+              "title": "ModuleBinding",
+              "description": "엔티티에 연결한 재사용 모듈 인스턴스와 직렬화 가능한 설정"
+            }
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "id",
+          "name",
+          "transform",
+          "modules"
+        ],
+        "additionalProperties": false,
+        "title": "Entity",
+        "description": "장면에 배치되는 stable ID 기반 엔티티"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "type",
+    "entities"
+  ],
+  "additionalProperties": false,
+  "title": "Scene",
+  "description": "월드 또는 UI 장면과 그 엔티티 목록",
+  "$defs": {
+    "__schema0": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/__schema0"
+          }
+        },
+        {
+          "type": "object",
+          "propertyNames": {
+            "type": "string"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/__schema0"
+          }
+        }
+      ]
+    }
+  },
+  "$id": "https://schemas.web-game-maker.dev/v1/scene.schema.json"
+}

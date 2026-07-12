@@ -1,0 +1,36 @@
+{
+  "name": "@web-game-maker/schema",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "schemas"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "coverage": "vitest run --coverage",
+    "generate:schemas": "tsx scripts/generate-schemas.ts",
+    "lint": "tsc --noEmit -p tsconfig.json --pretty false",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json --pretty false",
+    "validate:fixture": "tsx scripts/wgm.ts validate ../../examples/minimal",
+    "wgm": "tsx scripts/wgm.ts"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "4.1.10",
+    "tsx": "4.23.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

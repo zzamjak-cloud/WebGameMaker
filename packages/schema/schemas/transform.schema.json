@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "position": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false,
+      "title": "Vector2",
+      "description": "2차원 좌표 또는 배율"
+    },
+    "rotation": {
+      "type": "number"
+    },
+    "scale": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false,
+      "title": "Vector2",
+      "description": "2차원 좌표 또는 배율"
+    }
+  },
+  "required": [
+    "position",
+    "rotation",
+    "scale"
+  ],
+  "additionalProperties": false,
+  "title": "Transform",
+  "description": "엔티티의 2차원 위치, 회전 라디안, 배율",
+  "$id": "https://schemas.web-game-maker.dev/v1/transform.schema.json"
+}

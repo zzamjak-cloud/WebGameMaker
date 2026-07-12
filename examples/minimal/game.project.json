@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "game.topdown-sample",
+  "name": "탑다운 액션 최소 샘플",
+  "designId": "design.topdown-action",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "entrySceneId": "scene.main",
+  "sceneIds": [
+    "scene.main"
+  ]
+}

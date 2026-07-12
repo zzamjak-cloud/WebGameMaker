@@ -1,0 +1,52 @@
+{
+  "project": {
+    "schemaVersion": 1,
+    "id": "game.fixture",
+    "name": "잘못된 참조 fixture",
+    "designId": "design.fixture",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "entrySceneId": "scene.main",
+    "sceneIds": [
+      "scene.main"
+    ]
+  },
+  "scenes": [
+    {
+      "schemaVersion": 1,
+      "id": "scene.main",
+      "name": "메인 월드",
+      "type": "world",
+      "entities": [
+        {
+          "schemaVersion": 1,
+          "id": "entity.camera",
+          "name": "카메라",
+          "transform": {
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "modules": [
+            {
+              "schemaVersion": 1,
+              "id": "binding.camera-follow",
+              "moduleId": "module.camera-follow",
+              "enabled": true,
+              "targetEntityId": "entity.missing",
+              "config": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

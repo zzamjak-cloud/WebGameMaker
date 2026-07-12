@@ -1,0 +1,60 @@
+{
+  "project": {
+    "schemaVersion": 1,
+    "id": "game.fixture",
+    "name": "중복 ID fixture",
+    "designId": "design.fixture",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "entrySceneId": "scene.main",
+    "sceneIds": [
+      "scene.main"
+    ]
+  },
+  "scenes": [
+    {
+      "schemaVersion": 1,
+      "id": "scene.main",
+      "name": "메인 월드",
+      "type": "world",
+      "entities": [
+        {
+          "schemaVersion": 1,
+          "id": "entity.player",
+          "name": "첫 번째 플레이어",
+          "transform": {
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "modules": []
+        },
+        {
+          "schemaVersion": 1,
+          "id": "entity.player",
+          "name": "두 번째 플레이어",
+          "transform": {
+            "position": {
+              "x": 32,
+              "y": 32
+            },
+            "rotation": 0,
+            "scale": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          "modules": []
+        }
+      ]
+    }
+  ]
+}

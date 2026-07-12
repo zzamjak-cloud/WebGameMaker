@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "string",
+  "minLength": 1,
+  "maxLength": 128,
+  "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+  "title": "StableId",
+  "description": "저장과 재로딩 뒤에도 유지되는 안정 식별자",
+  "$id": "https://schemas.web-game-maker.dev/v1/stable-id.schema.json"
+}

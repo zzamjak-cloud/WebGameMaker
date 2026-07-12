@@ -1,0 +1,38 @@
+{
+  "name": "web-game-maker",
+  "version": "0.0.0",
+  "private": true,
+  "description": "기획·개발·디자인 직군을 위한 로컬 우선 웹 게임 제작 워크스페이스",
+  "type": "module",
+  "packageManager": "pnpm@11.12.0",
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": "11.12.0"
+  },
+  "scripts": {
+    "dev": "pnpm -r --parallel --if-present run dev",
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "pnpm -r --if-present run typecheck && tsc --project tsconfig.json",
+    "test": "pnpm -r --if-present run test",
+    "coverage": "pnpm --filter @web-game-maker/schema coverage",
+    "build": "pnpm -r --if-present run build",
+    "generate:schemas": "pnpm --filter @web-game-maker/schema generate:schemas",
+    "wgm": "tsx packages/schema/scripts/wgm.ts",
+    "validate:fixture": "pnpm wgm validate examples/minimal",
+    "test:e2e": "playwright test",
+    "e2e": "pnpm test:e2e",
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm coverage && pnpm generate:schemas && pnpm validate:fixture && pnpm build && pnpm e2e"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.61.1",
+    "@types/node": "24.13.3",
+    "eslint": "10.7.0",
+    "globals": "17.7.0",
+    "tsx": "4.23.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.63.0",
+    "vite": "8.1.4",
+    "vitest": "4.1.10"
+  }
+}
