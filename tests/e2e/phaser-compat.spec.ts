@@ -381,7 +381,7 @@ async function installRuntimeResourceProbe(page: Page): Promise<void> {
 test.describe('Phaser 4.2.1 호환성 @smoke', () => {
   test('자산·물리·입력·카메라와 3회 재생성 정리를 검증한다', async ({ page }) => {
     await installRuntimeResourceProbe(page);
-    await page.goto('./');
+    await page.goto('./?view=compat');
     expect(new URL(page.url()).pathname).toBe('/phase-0/nested/');
     await page.waitForFunction(
       () =>
@@ -578,7 +578,7 @@ test.describe('Phaser 4.2.1 호환성 @smoke', () => {
   });
 
   test('sandbox iframe의 ready와 ping/pong 왕복을 검증한다', async ({ page }) => {
-    await page.goto('./');
+    await page.goto('./?view=compat');
     expect(new URL(page.url()).pathname).toBe('/phase-0/nested/');
 
     const bridgeResult = await page.evaluate(async () => {

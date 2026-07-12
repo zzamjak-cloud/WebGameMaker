@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "id": "scene.floodgate-07-main",
+  "name": "수문 07 작업 갑판",
+  "type": "world",
+  "entities": [
+    {
+      "schemaVersion": 1,
+      "id": "entity.maintenance-drone",
+      "name": "정비 드론",
+      "transform": {
+        "position": { "x": 640, "y": 560 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.player-movement",
+          "moduleId": "module.player-move-2d",
+          "enabled": true,
+          "config": {
+            "speed": 260
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.player-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": {
+            "maximum": 100,
+            "current": 100
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.player-searchlight",
+          "moduleId": "module.searchlight-pulse",
+          "enabled": true,
+          "config": {
+            "damage": 40,
+            "range": 220,
+            "halfAngleDegrees": 36,
+            "heatPerPulse": 38,
+            "coolingPerSecond": 30,
+            "overheatLockMs": 800,
+            "recoveryHeat": 35
+          }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.ink-creature-01",
+      "name": "먹물체 01",
+      "transform": {
+        "position": { "x": 340, "y": 300 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-01-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": { "maximum": 40, "current": 40 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-01-patrol",
+          "moduleId": "module.enemy-patrol",
+          "enabled": true,
+          "config": { "axis": "x", "distance": 120, "speed": 70 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-01-chase",
+          "moduleId": "module.enemy-chase",
+          "enabled": true,
+          "targetEntityId": "entity.maintenance-drone",
+          "config": {
+            "speed": 115,
+            "detectionDistance": 260,
+            "disengageDistance": 360,
+            "stopDistance": 28
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-01-contact",
+          "moduleId": "module.damage-contact",
+          "enabled": true,
+          "targetEntityId": "entity.maintenance-drone",
+          "config": { "damage": 20, "cooldownMs": 700 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.ink-creature-02",
+      "name": "먹물체 02",
+      "transform": {
+        "position": { "x": 640, "y": 230 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-02-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": { "maximum": 40, "current": 40 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-02-patrol",
+          "moduleId": "module.enemy-patrol",
+          "enabled": true,
+          "config": { "axis": "y", "distance": 90, "speed": 64 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-02-chase",
+          "moduleId": "module.enemy-chase",
+          "enabled": true,
+          "targetEntityId": "entity.maintenance-drone",
+          "config": {
+            "speed": 120,
+            "detectionDistance": 250,
+            "disengageDistance": 350,
+            "stopDistance": 28
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-02-contact",
+          "moduleId": "module.damage-contact",
+          "enabled": true,
+          "targetEntityId": "entity.maintenance-drone",
+          "config": { "damage": 20, "cooldownMs": 700 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.ink-creature-03",
+      "name": "먹물체 03",
+      "transform": {
+        "position": { "x": 940, "y": 300 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-03-health",
+          "moduleId": "module.health",
+          "enabled": true,
+          "config": { "maximum": 40, "current": 40 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-03-patrol",
+          "moduleId": "module.enemy-patrol",
+          "enabled": true,
+          "config": { "axis": "x", "distance": 120, "speed": 74 }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-03-chase",
+          "moduleId": "module.enemy-chase",
+          "enabled": true,
+          "targetEntityId": "entity.maintenance-drone",
+          "config": {
+            "speed": 125,
+            "detectionDistance": 270,
+            "disengageDistance": 370,
+            "stopDistance": 28
+          }
+        },
+        {
+          "schemaVersion": 1,
+          "id": "binding.enemy-03-contact",
+          "moduleId": "module.damage-contact",
+          "enabled": true,
+          "targetEntityId": "entity.maintenance-drone",
+          "config": { "damage": 20, "cooldownMs": 700 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.signal-beacon-01",
+      "name": "신호등 01",
+      "transform": {
+        "position": { "x": 360, "y": 96 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.signal-beacon-01",
+          "moduleId": "module.signal-beacon",
+          "enabled": true,
+          "config": { "order": 1 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.signal-beacon-02",
+      "name": "신호등 02",
+      "transform": {
+        "position": { "x": 640, "y": 96 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.signal-beacon-02",
+          "moduleId": "module.signal-beacon",
+          "enabled": true,
+          "config": { "order": 2 }
+        }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "entity.signal-beacon-03",
+      "name": "신호등 03",
+      "transform": {
+        "position": { "x": 920, "y": 96 },
+        "rotation": 0,
+        "scale": { "x": 1, "y": 1 }
+      },
+      "modules": [
+        {
+          "schemaVersion": 1,
+          "id": "binding.signal-beacon-03",
+          "moduleId": "module.signal-beacon",
+          "enabled": true,
+          "config": { "order": 3 }
+        }
+      ]
+    }
+  ]
+}

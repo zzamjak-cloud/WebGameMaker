@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "game.floodgate-07",
+  "name": "수문 07 — 마지막 등불",
+  "designId": "design.floodgate-07",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "entrySceneId": "scene.floodgate-07-main",
+  "sceneIds": [
+    "scene.floodgate-07-main"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "gameId": "game.floodgate-07",
+  "acceptanceProfile": "topdown-vertical-slice-v1",
+  "cleanScaffold": "phase-0-player-and-schema",
+  "actions": [
+    {
+      "id": "define-project",
+      "kind": "file",
+      "path": "games/floodgate-07/game.project.json"
+    },
+    {
+      "id": "define-scene",
+      "kind": "file",
+      "path": "games/floodgate-07/scenes/main.scene.json"
+    },
+    {
+      "id": "compile-game-config",
+      "kind": "code",
+      "path": "games/floodgate-07/src/compileProject.ts"
+    },
+    {
+      "id": "implement-game-state",
+      "kind": "code",
+      "path": "games/floodgate-07/src/gameState.ts"
+    },
+    {
+      "id": "implement-player-movement",
+      "kind": "code",
+      "path": "games/floodgate-07/src/features/playerMovement.ts"
+    },
+    {
+      "id": "implement-enemy-ai",
+      "kind": "code",
+      "path": "games/floodgate-07/src/features/enemyAi.ts"
+    },
+    {
+      "id": "implement-combat",
+      "kind": "code",
+      "path": "games/floodgate-07/src/features/combat.ts"
+    },
+    {
+      "id": "connect-player-runtime",
+      "kind": "code",
+      "path": "apps/player/src/vertical-slice/verticalSliceRuntime.ts"
+    },
+    {
+      "id": "connect-react-hud",
+      "kind": "code",
+      "path": "apps/player/src/vertical-slice/VerticalSliceView.tsx"
+    },
+    {
+      "id": "verify-complete-round",
+      "kind": "test",
+      "path": "tests/e2e/topdown-vertical-slice.spec.ts"
+    }
+  ],
+  "verification": {
+    "argv": [
+      "pnpm",
+      "e2e",
+      "--grep",
+      "@vertical-slice"
+    ],
+    "expectedExitCode": 0
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "metricVersion": "reuse-v1",
+  "baselineId": "phase1.game.floodgate-07.pre-extraction",
+  "gameId": "game.floodgate-07",
+  "acceptanceProfile": "topdown-vertical-slice-v1",
+  "commonGameplayLoc": 390,
+  "manualSetupSteps": 10,
+  "inputs": {
+    "sourceRoot": "games/floodgate-07/src/features",
+    "recipe": "games/floodgate-07/reuse-recipe.json",
+    "sourceDigest": "sha256:7df34f64b0178c9a587fa195e4e07b9012f481b7ed0c4a76a2a88592e43f2cfd",
+    "recipeDigest": "sha256:97090cafb134dd6c214d488e77e524517b4bb6d45642f79d091954cf2c7032f8"
+  },
+  "breakdown": {
+    "files": [
+      {
+        "path": "games/floodgate-07/src/features/combat.ts",
+        "loc": 159,
+        "digest": "sha256:e0c1fb3781fecc6823cbb79d071d771b001a2c3a3fc75b5d0a9987bb7a1ade87"
+      },
+      {
+        "path": "games/floodgate-07/src/features/enemyAi.ts",
+        "loc": 152,
+        "digest": "sha256:154f543ffaa36664de8c5e284ff07679aef2d1027540fcd65b97326cdf10db0f"
+      },
+      {
+        "path": "games/floodgate-07/src/features/playerMovement.ts",
+        "loc": 79,
+        "digest": "sha256:b569046a24a17cbdbfbc4abd2afc6622d4a210ee03bd3382fab6e39d4c793a1b"
+      }
+    ],
+    "actionIds": [
+      "define-project",
+      "define-scene",
+      "compile-game-config",
+      "implement-game-state",
+      "implement-player-movement",
+      "implement-enemy-ai",
+      "implement-combat",
+      "connect-player-runtime",
+      "connect-react-hud",
+      "verify-complete-round"
+    ]
+  }
+}

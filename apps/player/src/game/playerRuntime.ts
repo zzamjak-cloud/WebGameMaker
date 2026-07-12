@@ -7,6 +7,12 @@ import {
   type RuntimeProbeSnapshot,
   type RuntimeSnapshot,
 } from './runtimeTypes';
+import {
+  destroyPhaserGame,
+  PhaserGlobalDomResources,
+  RuntimeResourceLedger,
+  RuntimeResourceMonitor,
+} from './phaserLifecycle';
 
 const GAME_WIDTH = 960;
 const GAME_HEIGHT = 540;
@@ -38,125 +44,6 @@ interface DirectionKeys {
   A: Phaser.Input.Keyboard.Key;
   S: Phaser.Input.Keyboard.Key;
   D: Phaser.Input.Keyboard.Key;
-}
-
-interface GlobalResourceProbeSample {
-  listenerCount: number;
-  timerCount: number;
-}
-
-interface GlobalResourceProbe {
-  sample: () => GlobalResourceProbeSample;
-}
-
-function getGlobalResourceProbe(): GlobalResourceProbe | null {
-  const probe = (
-    window as Window & {
-      __WGM_RUNTIME_RESOURCE_PROBE__?: GlobalResourceProbe;
-    }
-  ).__WGM_RUNTIME_RESOURCE_PROBE__;
-
-  return probe && typeof probe.sample === 'function' ? probe : null;
-}
-
-class RuntimeResourceLedger {
-  private listenerDisposers = new Set<() => void>();
-  private timerIds = new Set<number>();
-
-  get activeListeners(): number {
-    return this.listenerDisposers.size;
-  }
-
-  get activeTimers(): number {
-    return this.timerIds.size;
-  }
-
-  listen(type: string, listener: EventListener): void {
-    window.addEventListener(type, listener);
-    this.listenerDisposers.add(() => window.removeEventListener(type, listener));
-  }
-
-  interval(callback: () => void, delay: number): void {
-    const id = window.setInterval(callback, delay);
-    this.timerIds.add(id);
-  }
-
-  dispose(): void {
-    for (const disposeListener of this.listenerDisposers) {
-      disposeListener();
-    }
-    this.listenerDisposers.clear();
-
-    for (const timerId of this.timerIds) {
-      window.clearInterval(timerId);
-    }
-    this.timerIds.clear();
-  }
-}
-
-class PhaserGlobalDomResources {
-  private captureActive = false;
-  private readonly previousDocumentAddDescriptor = Object.getOwnPropertyDescriptor(
-    document,
-    'addEventListener',
-  );
-  private readonly previousWindowBlur = window.onblur;
-  private readonly previousWindowFocus = window.onfocus;
-  private readonly visibilityListeners: Array<{
-    type: string;
-    listener: EventListenerOrEventListenerObject;
-    options?: boolean | AddEventListenerOptions;
-  }> = [];
-
-  beginCapture(): void {
-    if (this.captureActive) {
-      return;
-    }
-
-    this.captureActive = true;
-    const currentAddEventListener = document.addEventListener;
-    document.addEventListener = ((
-      type: string,
-      listener: EventListenerOrEventListenerObject | null,
-      options?: boolean | AddEventListenerOptions,
-    ) => {
-      if (!listener) {
-        return;
-      }
-
-      if (type.endsWith('visibilitychange')) {
-        this.visibilityListeners.push({
-          type,
-          listener,
-          ...(options === undefined ? {} : { options }),
-        });
-      }
-      currentAddEventListener.call(document, type, listener, options);
-    }) as typeof document.addEventListener;
-  }
-
-  endCapture(): void {
-    if (!this.captureActive) {
-      return;
-    }
-
-    if (this.previousDocumentAddDescriptor) {
-      Object.defineProperty(document, 'addEventListener', this.previousDocumentAddDescriptor);
-    } else {
-      Reflect.deleteProperty(document, 'addEventListener');
-    }
-    this.captureActive = false;
-  }
-
-  dispose(): void {
-    this.endCapture();
-    for (const { type, listener, options } of this.visibilityListeners) {
-      document.removeEventListener(type, listener, options);
-    }
-    this.visibilityListeners.length = 0;
-    window.onblur = this.previousWindowBlur;
-    window.onfocus = this.previousWindowFocus;
-  }
 }
 
 class CompatibilityScene extends Phaser.Scene {
@@ -377,8 +264,7 @@ class PhaserRuntimeController implements PlayerRuntimeController {
   private domResources: PhaserGlobalDomResources | null = null;
   private game: Phaser.Game | null = null;
   private operation: Promise<void> = Promise.resolve();
-  private readonly resourceProbe = getGlobalResourceProbe();
-  private readonly resourceProbeBaseline = this.resourceProbe?.sample() ?? null;
+  private readonly resourceMonitor = new RuntimeResourceMonitor();
   private resources: RuntimeResourceLedger | null = null;
   private scene: CompatibilityScene | null = null;
   private snapshot = cloneRuntimeSnapshot(INITIAL_RUNTIME_SNAPSHOT);
@@ -430,24 +316,6 @@ class PhaserRuntimeController implements PlayerRuntimeController {
       pulses: patch.pulses ? [...patch.pulses] : this.snapshot.pulses,
     };
     this.onSnapshot(this.getSnapshot());
-  }
-
-  private measureActiveResources(resources: RuntimeResourceLedger | null): {
-    listeners: number;
-    timers: number;
-  } {
-    if (!this.resourceProbe || !this.resourceProbeBaseline) {
-      return {
-        listeners: resources?.activeListeners ?? 0,
-        timers: resources?.activeTimers ?? 0,
-      };
-    }
-
-    const current = this.resourceProbe.sample();
-    return {
-      listeners: Math.max(0, current.listenerCount - this.resourceProbeBaseline.listenerCount),
-      timers: Math.max(0, current.timerCount - this.resourceProbeBaseline.timerCount),
-    };
   }
 
   private async performRecreate(cycles: number): Promise<void> {
@@ -508,7 +376,7 @@ class PhaserRuntimeController implements PlayerRuntimeController {
           Object.values(signals.assets).every(Boolean) &&
           Object.values(signals.systems).every(Boolean);
         // 테스트 프로브가 있으면 Ledger가 아닌 Phaser를 포함한 실제 전역 자원 차이를 표시한다.
-        const activeResources = this.measureActiveResources(resources);
+        const activeResources = this.resourceMonitor.measure(resources);
         this.publish({
           phase: allReady ? 'ready' : 'error',
           errorMessage: allReady ? null : 'Phaser 호환성 신호 중 준비되지 않은 항목이 있습니다.',
@@ -570,31 +438,10 @@ class PhaserRuntimeController implements PlayerRuntimeController {
 
     resources?.dispose();
 
-    await new Promise<void>((resolve) => {
-      let settled = false;
-      let timeoutId = 0;
-      const finish = () => {
-        if (settled) {
-          return;
-        }
-        settled = true;
-        window.clearTimeout(timeoutId);
-        game.events.off(Phaser.Core.Events.DESTROY, finish);
-        resolve();
-      };
-
-      game.events.once(Phaser.Core.Events.DESTROY, finish);
-      timeoutId = window.setTimeout(finish, 1_000);
-      game.destroy(true, false);
-    });
-
-    // Phaser의 destroy 후속 정리가 현재 task를 벗어날 수 있어 다음 task에서 잔존을 측정한다.
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 0));
-    // Phaser 4.2.1이 회수하지 않는 visibility/window handler는 인스턴스 소유 범위에서 복구한다.
-    domResources?.dispose();
+    await destroyPhaserGame(game, domResources);
 
     const canvasCount = this.parent.querySelectorAll('canvas').length;
-    const activeResources = this.measureActiveResources(resources);
+    const activeResources = this.resourceMonitor.measure(resources);
 
     this.game = null;
     this.domResources = null;

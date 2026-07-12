@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "pnpm --filter @web-game-maker/schema build",
     "dev": "vite",
+    "prebuild": "pnpm --filter @web-game-maker/floodgate-07 build",
     "build": "tsc -p tsconfig.json && vite build",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.json --pretty false",
@@ -12,6 +14,7 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
+    "@web-game-maker/floodgate-07": "workspace:*",
     "phaser": "4.2.1",
     "react": "19.2.7",
     "react-dom": "19.2.7"
