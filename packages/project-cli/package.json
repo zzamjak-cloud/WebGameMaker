@@ -1,0 +1,35 @@
+{
+  "name": "@web-game-maker/project-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "bin": {
+    "wgm": "./dist/cli.js"
+  },
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "prebuild": "pnpm --filter @web-game-maker/asset-tools build",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "tsc --noEmit -p tsconfig.json --pretty false",
+    "pretest": "pnpm run build",
+    "test": "vitest run",
+    "pretypecheck": "pnpm --filter @web-game-maker/asset-tools build",
+    "typecheck": "tsc --noEmit -p tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@web-game-maker/asset-tools": "workspace:*",
+    "@web-game-maker/schema": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.3",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

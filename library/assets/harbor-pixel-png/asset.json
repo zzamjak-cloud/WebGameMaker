@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "asset.harbor-pixel-png",
+  "name": "asset.harbor-pixel-png",
+  "type": "image",
+  "mimeType": "image/png",
+  "extension": "png",
+  "byteSize": 70,
+  "sha256": "sha256:c414cd0e204de974f73753c7e28d7638e7b3691bb8b1a2bab6b25bb7fed7ce77",
+  "tags": [
+    "harbor",
+    "sample"
+  ]
+}

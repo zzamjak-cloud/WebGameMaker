@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "asset-tools",
+  "assets": [
+    {
+      "id": "asset.harbor-pixel-jpg",
+      "name": "asset.harbor-pixel-jpg",
+      "type": "image",
+      "mimeType": "image/jpeg",
+      "extension": "jpg",
+      "sha256": "sha256:32461d5bd1773012acef0ba15636752949bd7c2ce50f9172159d9f56cf0dd9af",
+      "tags": [
+        "harbor",
+        "sample"
+      ],
+      "path": "assets/harbor-pixel-jpg"
+    },
+    {
+      "id": "asset.harbor-pixel-png",
+      "name": "asset.harbor-pixel-png",
+      "type": "image",
+      "mimeType": "image/png",
+      "extension": "png",
+      "sha256": "sha256:c414cd0e204de974f73753c7e28d7638e7b3691bb8b1a2bab6b25bb7fed7ce77",
+      "tags": [
+        "harbor",
+        "sample"
+      ],
+      "path": "assets/harbor-pixel-png"
+    },
+    {
+      "id": "asset.harbor-pixel-svg",
+      "name": "asset.harbor-pixel-svg",
+      "type": "image",
+      "mimeType": "image/svg+xml",
+      "extension": "svg",
+      "sha256": "sha256:a424a1e94fa0ee79d44100ca932a6b6dd2a65730887d5e26efce61211f1e4823",
+      "tags": [
+        "harbor",
+        "sample"
+      ],
+      "path": "assets/harbor-pixel-svg"
+    },
+    {
+      "id": "asset.harbor-pixel-webp",
+      "name": "asset.harbor-pixel-webp",
+      "type": "image",
+      "mimeType": "image/webp",
+      "extension": "webp",
+      "sha256": "sha256:5f5944dd69238d83d950686ccef5d165bf4d8f56d56b764953bd34a8f2febb26",
+      "tags": [
+        "harbor",
+        "sample"
+      ],
+      "path": "assets/harbor-pixel-webp"
+    }
+  ]
+}

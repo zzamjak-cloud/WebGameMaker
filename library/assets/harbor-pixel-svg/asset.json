@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "asset.harbor-pixel-svg",
+  "name": "asset.harbor-pixel-svg",
+  "type": "image",
+  "mimeType": "image/svg+xml",
+  "extension": "svg",
+  "byteSize": 108,
+  "sha256": "sha256:a424a1e94fa0ee79d44100ca932a6b6dd2a65730887d5e26efce61211f1e4823",
+  "tags": [
+    "harbor",
+    "sample"
+  ]
+}

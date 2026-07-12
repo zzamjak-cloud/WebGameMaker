@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "asset.harbor-pixel-webp",
+  "name": "asset.harbor-pixel-webp",
+  "type": "image",
+  "mimeType": "image/webp",
+  "extension": "webp",
+  "byteSize": 34,
+  "sha256": "sha256:5f5944dd69238d83d950686ccef5d165bf4d8f56d56b764953bd34a8f2febb26",
+  "tags": [
+    "harbor",
+    "sample"
+  ]
+}

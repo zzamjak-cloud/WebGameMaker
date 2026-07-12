@@ -5,6 +5,9 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   server: {
+    host: '127.0.0.1',
+    port: 5180,
+    strictPort: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
