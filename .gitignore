@@ -6,6 +6,7 @@
 node_modules/
 dist/
 exports/
+releases/
 coverage/
 playwright-report/
 test-results/

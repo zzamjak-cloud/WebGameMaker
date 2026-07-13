@@ -6,7 +6,20 @@ import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const exportDir = path.join(repoRoot, 'exports/player-static');
+
+function readOption(name) {
+  const index = process.argv.indexOf(name);
+  if (index === -1) {
+    return null;
+  }
+  const value = process.argv[index + 1];
+  if (!value || value.startsWith('--')) {
+    throw new Error(`${name} 값이 없습니다.`);
+  }
+  return value;
+}
+
+const exportDir = path.resolve(repoRoot, readOption('--dir') ?? 'exports/player-static');
 
 const budgets = [
   { label: 'index.html', pattern: /^index\.html$/, gzipMax: 8 * 1024 },

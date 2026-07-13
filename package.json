@@ -28,13 +28,16 @@
     "measure:reuse:phase4": "tsx tests/benchmarks/phase4-reuse-gate.ts",
     "export:player": "pnpm --filter @web-game-maker/player build && node scripts/export-player.mjs",
     "verify:export": "pnpm export:player && node scripts/verify-export.mjs",
+    "package:player": "node scripts/package-player-release.mjs",
+    "release:player": "pnpm verify:export && pnpm package:player",
+    "verify:release": "pnpm release:player && node scripts/verify-player-release.mjs",
     "serve:export": "node scripts/serve-static-export.mjs --dir exports/player-static --base /release/checkpoint/ --port 4273",
     "test:e2e": "playwright test",
     "test:e2e:export": "playwright test -c playwright.export.config.ts",
     "e2e": "pnpm test:e2e",
     "e2e:export": "pnpm test:e2e:export",
     "visual:update:export": "UPDATE_EXPORT_VISUAL_BASELINE=1 pnpm test:e2e:export --grep @export-visual --project chromium",
-    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm coverage && pnpm generate:schemas && pnpm validate:fixture && pnpm validate:games && pnpm measure:reuse -- --check && pnpm measure:reuse:phase4 && pnpm build && pnpm verify:export && pnpm e2e && pnpm e2e:export"
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm coverage && pnpm generate:schemas && pnpm validate:fixture && pnpm validate:games && pnpm measure:reuse -- --check && pnpm measure:reuse:phase4 && pnpm build && pnpm verify:release && pnpm e2e && pnpm e2e:export"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
