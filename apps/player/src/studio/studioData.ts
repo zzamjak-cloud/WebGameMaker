@@ -49,7 +49,23 @@ function collectModuleIds(entities: JsonRecord[]): string[] {
   ].sort();
 }
 
-function createSource(projectInput: unknown, sceneInput: unknown): StudioProjectSource {
+function moduleConfigPath(entities: JsonRecord[], moduleId: string, configKey: string): string {
+  for (const [entityIndex, entity] of entities.entries()) {
+    const bindingIndex = modulesOf(entity).findIndex(
+      (binding) => binding.enabled === true && binding.moduleId === moduleId,
+    );
+    if (bindingIndex >= 0) {
+      return `/entities/${entityIndex}/modules/${bindingIndex}/config/${configKey}`;
+    }
+  }
+  return '';
+}
+
+function createSource(
+  projectInput: unknown,
+  sceneInput: unknown,
+  paths: { projectPath: string; scenePath: string },
+): StudioProjectSource {
   const project = asRecord(projectInput);
   const scene = asRecord(sceneInput);
   const entities = Array.isArray(scene.entities) ? scene.entities.map(asRecord) : [];
@@ -63,7 +79,9 @@ function createSource(projectInput: unknown, sceneInput: unknown): StudioProject
     id: String(project.id),
     name: String(project.name),
     designId: String(project.designId),
+    projectPath: paths.projectPath,
     sceneId: String(scene.id),
+    scenePath: paths.scenePath,
     sceneName: String(scene.name),
     viewport: asRecord(project.viewport) as StudioProjectSource['viewport'],
     entityCount: entities.length,
@@ -73,6 +91,8 @@ function createSource(projectInput: unknown, sceneInput: unknown): StudioProject
       moduleConfig(asRecord(firstEnemy), 'module.enemy-patrol').speed,
       70,
     ),
+    playerMovePath: moduleConfigPath(entities, 'module.player-move-2d', 'speed'),
+    firstEnemyPatrolPath: moduleConfigPath(entities, 'module.enemy-patrol', 'speed'),
     enemyCount: entities.filter((entity) =>
       modulesOf(entity).some((binding) => binding.moduleId === 'module.enemy-patrol'),
     ).length,
@@ -97,8 +117,14 @@ function moduleEntry(input: unknown): StudioModuleEntry {
 }
 
 export const STUDIO_PROJECTS = [
-  createSource(floodgateProject, floodgateScene),
-  createSource(relayProject, relayScene),
+  createSource(floodgateProject, floodgateScene, {
+    projectPath: 'games/floodgate-07/game.project.json',
+    scenePath: 'games/floodgate-07/scenes/main.scene.json',
+  }),
+  createSource(relayProject, relayScene, {
+    projectPath: 'games/relay-ward/game.project.json',
+    scenePath: 'games/relay-ward/scenes/main.scene.json',
+  }),
 ] as const;
 
 export const STUDIO_ASSETS: StudioAssetEntry[] = Array.isArray(

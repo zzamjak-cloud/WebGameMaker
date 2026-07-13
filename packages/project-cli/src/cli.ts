@@ -7,6 +7,7 @@ import { importImageAsset } from "@web-game-maker/asset-tools";
 import { catalogSearch } from "./catalog.js";
 import { createGameProject } from "./create-game.js";
 import { validateDesignLibrary } from "./designs.js";
+import { createModuleScaffold, promoteGameFeature } from "./modules.js";
 import { validateProjectPath } from "./validate.js";
 
 function printUsage(): void {
@@ -15,6 +16,8 @@ function printUsage(): void {
   pnpm wgm catalog search --type design|asset|module [--tag <tag>] [--text <q>]
   pnpm wgm asset import <path> --id <asset.id> [--tag <tag>]...
   pnpm wgm game create <game.id> [--name <name>]
+  pnpm wgm module create <module.id> [--category <name>] [--capability <capability>]...
+  pnpm wgm module promote <feature.ts> --id <module.id> [--category <name>] [--capability <capability>]...
   pnpm wgm designs validate
   pnpm wgm dev [player]
   pnpm wgm build player`);
@@ -155,6 +158,48 @@ async function main(): Promise<void> {
       ...(templateId === undefined ? {} : { templateId }),
     });
     console.log(`게임 생성: ${created.gameDir} (design ${created.designId})`);
+    return;
+  }
+
+  if (command === "module" && subcommand === "create") {
+    const moduleId = rest[0];
+    if (!moduleId) {
+      printUsage();
+      process.exitCode = 2;
+      return;
+    }
+    const category = getFlag(rest, "--category");
+    const description = getFlag(rest, "--description");
+    const created = await createModuleScaffold({
+      repoRoot: root,
+      moduleId,
+      ...(category === undefined ? {} : { category }),
+      ...(description === undefined ? {} : { description }),
+      capabilities: getFlags(rest, "--capability"),
+    });
+    console.log(`모듈 생성: ${created.manifestPath} / ${created.sourcePath}`);
+    return;
+  }
+
+  if (command === "module" && subcommand === "promote") {
+    const sourcePath = rest[0];
+    const moduleId = getFlag(rest, "--id");
+    if (!sourcePath || !moduleId) {
+      printUsage();
+      process.exitCode = 2;
+      return;
+    }
+    const category = getFlag(rest, "--category");
+    const description = getFlag(rest, "--description");
+    const promoted = await promoteGameFeature({
+      repoRoot: root,
+      sourcePath,
+      moduleId,
+      ...(category === undefined ? {} : { category }),
+      ...(description === undefined ? {} : { description }),
+      capabilities: getFlags(rest, "--capability"),
+    });
+    console.log(`모듈 승격 scaffold: ${promoted.manifestPath} / ${promoted.sourcePath}`);
     return;
   }
 

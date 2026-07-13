@@ -19,6 +19,13 @@ export {
   type DesignIssue,
 } from "./designs.js";
 export {
+  createModuleScaffold,
+  promoteGameFeature,
+  type ModuleScaffoldOptions,
+  type ModuleScaffoldResult,
+  type PromoteModuleOptions,
+} from "./modules.js";
+export {
   loadProjectBundle,
   validateProjectPath,
   type ProjectValidationIssue,

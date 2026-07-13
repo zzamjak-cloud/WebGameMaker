@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, writeFile } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,7 +10,9 @@ import {
   catalogSearch,
   collectDesignSectionIssues,
   createGameProject,
+  createModuleScaffold,
   parseDesignFrontMatter,
+  promoteGameFeature,
   validateDesignLibrary,
   validateProjectPath,
 } from "../src/index.js";
@@ -83,5 +85,37 @@ describe("project-cli designs/catalog", () => {
       name: "Phase3 Demo",
     });
     expect(created.designId).toBe("design.phase3-demo");
+  });
+
+  it("module create/promote로 공용 모듈 후보 scaffold를 만든다", async () => {
+    const root = await mkdtemp(join(tmpdir(), "wgm-module-"));
+    const created = await createModuleScaffold({
+      repoRoot: root,
+      moduleId: "module.phase8-dash",
+      category: "movement",
+      capabilities: ["clock"],
+    });
+    expect(created.manifestPath).toBe(
+      "packages/core-modules/manifests/phase8-dash.manifest.json",
+    );
+    const manifest = JSON.parse(await readFile(join(root, created.manifestPath), "utf8")) as {
+      id: string;
+      requiredCapabilities: string[];
+    };
+    expect(manifest.id).toBe("module.phase8-dash");
+    expect(manifest.requiredCapabilities).toEqual(["clock"]);
+
+    await mkdir(join(root, "games/demo/src/features"), { recursive: true });
+    await writeFile(
+      join(root, "games/demo/src/features/blink.ts"),
+      "export const blink = 1;\n",
+    );
+    const promoted = await promoteGameFeature({
+      repoRoot: root,
+      sourcePath: "games/demo/src/features/blink.ts",
+      moduleId: "module.phase8-blink",
+      capabilities: ["eventBus"],
+    });
+    expect(await readFile(join(root, promoted.sourcePath), "utf8")).toContain("blink");
   });
 });

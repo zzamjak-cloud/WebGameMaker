@@ -48,6 +48,13 @@
       return;
     }
     const canvas = tracked.canvas;
+    const nextWidth = Number(snapshot.viewport?.width ?? 960);
+    const nextHeight = Number(snapshot.viewport?.height ?? 540);
+    if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
+      canvas.width = nextWidth;
+      canvas.height = nextHeight;
+      root.dataset.viewportMode = snapshot.viewportMode ?? 'desktop';
+    }
     const context = canvas.getContext('2d');
     const width = canvas.width;
     const height = canvas.height;

@@ -4,7 +4,7 @@
 
 ## 현재 기준
 
-- Node.js 24.18.0 LTS
+- Node.js 24.x 또는 25.x
 - pnpm 11.12.0
 - TypeScript 6 strict mode
 - Vite 8, Vitest 4, Playwright 1
@@ -14,6 +14,9 @@
 - Phase 3 기획·에셋 풀과 `wgm` CLI
 - Phase 4 두 번째 탑다운 게임 `Relay Ward — 마지막 전송` 재사용 증명
 - Phase 5 Studio MVP: 프로젝트 선택, HUD 포함 편집, draft preview, 저장, play/reset
+- Phase 6 정적 export 안정화
+- Phase 7 로컬 릴리즈 패키징
+- Phase 8 Studio draft JSON patch export, 모바일 preview, schema hint, route lazy loading
 
 ## 바로 실행
 
@@ -47,6 +50,9 @@ pnpm verify
 | `pnpm test` | 단위·계약 테스트 실행 |
 | `pnpm coverage` | schema 핵심 계약의 80% coverage gate 실행 |
 | `pnpm build` | 전체 프로덕션 빌드 |
+| `pnpm export:player` | 정적 player export 생성 |
+| `pnpm release:player` | 로컬 릴리즈 archive와 manifest 생성 |
+| `pnpm verify:release` | 릴리즈 archive 압축 해제·checksum·export 검증 |
 | `pnpm wgm validate examples/minimal` | 프로젝트와 장면 bundle 교차 참조 검증 |
 | `pnpm validate:games` | 실제 게임 프로젝트 schema·참조 검증 |
 | `pnpm measure:reuse -- --check` | Phase 1 재사용 비용 기준선 drift 검사 |
@@ -79,5 +85,7 @@ pnpm verify
 | `pnpm wgm catalog search --type design\|asset\|module` | 카탈로그 검색 |
 | `pnpm wgm asset import <path> --id asset.* --tag <tag>` | 이미지 에셋 등록 |
 | `pnpm wgm game create game.<id>` | 게임·기획 골격 생성 |
+| `pnpm wgm module create module.<id>` | 공용 모듈 후보 manifest/source scaffold 생성 |
+| `pnpm wgm module promote <feature.ts> --id module.<id>` | 게임 기능 파일을 공용 모듈 후보로 승격 scaffold |
 | `pnpm test:designs` / `pnpm test:assets` | Phase 3 게이트 테스트 |
 | `pnpm --filter @web-game-maker/relay-ward test` | Phase 4 두 번째 게임 계약·규칙 테스트 |

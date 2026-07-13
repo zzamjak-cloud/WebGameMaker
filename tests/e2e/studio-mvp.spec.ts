@@ -38,6 +38,13 @@ test.describe("Studio MVP @studio", () => {
     await expect(page.getByTestId("studio-asset-browser")).toContainText(
       "asset.harbor-pixel",
     );
+    await expect(page.getByTestId("studio-schema-panel")).toContainText(
+      "Player speed",
+    );
+    await expect(page.getByTestId("studio-validation-status")).toHaveAttribute(
+      "data-issue-count",
+      "0",
+    );
 
     await page.getByRole("tab", { name: /Relay Ward/ }).click();
     await expect(page.getByTestId("studio-root")).toHaveAttribute(
@@ -64,6 +71,27 @@ test.describe("Studio MVP @studio", () => {
       "data-objective",
       "Nodes 2/3",
     );
+    await page.getByTestId("studio-mobile-preview").click();
+    await expect(page.getByTestId("studio-preview-status")).toHaveAttribute(
+      "data-viewport-mode",
+      "mobile",
+    );
+    await page.getByTestId("studio-export-patch").click();
+    const exportBundle = JSON.parse(
+      await page.getByTestId("studio-export-output").inputValue(),
+    ) as {
+      projectId: string;
+      operations: Array<{ file: string; path: string; value: unknown }>;
+      uiScreen: { elements: Array<{ text: string }> };
+    };
+    expect(exportBundle.projectId).toBe("game.relay-ward");
+    expect(exportBundle.operations).toContainEqual(
+      expect.objectContaining({
+        file: "games/relay-ward/scenes/main.scene.json",
+        value: 333,
+      }),
+    );
+    expect(exportBundle.uiScreen.elements[0]?.text).toBe(htmlLikeTitle);
     await page.waitForTimeout(250);
     await expect(page.getByTestId("studio-cleanup-status")).toHaveAttribute(
       "data-reset-count",

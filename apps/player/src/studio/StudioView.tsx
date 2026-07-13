@@ -7,8 +7,10 @@ import {
   requestPreviewCleanup,
 } from './studioPreview';
 import type { PreviewMessage } from './studioPreview';
-import type { SavedStudioDraft, StudioDraft } from './studioTypes';
+import type { SavedStudioDraft, StudioDraft, StudioViewportMode } from './studioTypes';
 import {
+  STUDIO_FORM_FIELDS,
+  buildDraftExportBundle,
   buildPreviewSnapshot,
   cloneDraft,
   createInitialDraft,
@@ -16,6 +18,7 @@ import {
   formatSavedAt,
   loadDraft,
   saveDraft,
+  validateDraft,
 } from './studioWorkspace';
 
 interface DraftHistory {
@@ -53,6 +56,8 @@ export function StudioView() {
   const [projectId, setProjectId] = useState(initialProject.id);
   const [saved, setSaved] = useState<SavedStudioDraft | undefined>(initialLoad.saved);
   const [history, setHistory] = useState(() => createHistory(initialLoad.draft));
+  const [viewportMode, setViewportMode] = useState<StudioViewportMode>('desktop');
+  const [exportBundleText, setExportBundleText] = useState('');
   const [previewRunId, setPreviewRunId] = useState(1);
   const [previewReady, setPreviewReady] = useState(false);
   const [previewState, setPreviewState] = useState({
@@ -73,9 +78,10 @@ export function StudioView() {
   const draft = history.present;
   const initialDraft = useMemo(() => createInitialDraft(project), [project]);
   const dirty = !sameDraft(draft, saved?.draft ?? initialDraft);
+  const validationIssues = useMemo(() => validateDraft(draft), [draft]);
   const previewSnapshot = useMemo(
-    () => buildPreviewSnapshot(project, draft),
-    [draft, project],
+    () => buildPreviewSnapshot(project, draft, viewportMode),
+    [draft, project, viewportMode],
   );
   const previewSrc = useMemo(
     () => createPreviewSrc(previewRunId),
@@ -194,9 +200,20 @@ export function StudioView() {
   };
 
   const onSave = () => {
+    if (validationIssues.length > 0) {
+      return;
+    }
     const savedDraft = saveDraft(draft, saved);
     setSaved(savedDraft);
     restartPreview();
+  };
+
+  const onExportDraft = () => {
+    if (validationIssues.length > 0) {
+      return;
+    }
+    const bundle = buildDraftExportBundle(project, draft);
+    setExportBundleText(`${JSON.stringify(bundle, null, 2)}\n`);
   };
 
   return (
@@ -224,8 +241,21 @@ export function StudioView() {
           <button type="button" onClick={restartPreview} data-testid="studio-reset-preview">
             Reset
           </button>
-          <button type="button" onClick={onSave} data-testid="studio-save">
+          <button
+            type="button"
+            onClick={onSave}
+            data-testid="studio-save"
+            disabled={validationIssues.length > 0}
+          >
             Save
+          </button>
+          <button
+            type="button"
+            onClick={onExportDraft}
+            data-testid="studio-export-patch"
+            disabled={validationIssues.length > 0}
+          >
+            Export JSON Patch
           </button>
         </div>
       </header>
@@ -267,17 +297,40 @@ export function StudioView() {
           </div>
         </aside>
 
-        <section className="studio-stage" aria-label="Editor canvas">
+        <section
+          className="studio-stage"
+          aria-label="Editor canvas"
+          data-viewport-mode={viewportMode}
+        >
           <div className="studio-canvas-bar">
             <div>
               <p className="rail-label">Canvas</p>
               <h2>{draft.hud.title}</h2>
+            </div>
+            <div className="studio-viewport-switcher" aria-label="Viewport preview">
+              <button
+                type="button"
+                aria-pressed={viewportMode === 'desktop'}
+                data-testid="studio-desktop-preview"
+                onClick={() => setViewportMode('desktop')}
+              >
+                Desktop
+              </button>
+              <button
+                type="button"
+                aria-pressed={viewportMode === 'mobile'}
+                data-testid="studio-mobile-preview"
+                onClick={() => setViewportMode('mobile')}
+              >
+                Mobile
+              </button>
             </div>
             <output
               className="studio-preview-status"
               data-ready={previewReady}
               data-title={previewState.title}
               data-objective={previewState.objectiveLabel}
+              data-viewport-mode={viewportMode}
               data-testid="studio-preview-status"
             >
               {previewReady ? 'Preview ready' : 'Preview booting'}
@@ -326,6 +379,16 @@ export function StudioView() {
           >
             cleanup L{cleanup.listeners} T{cleanup.timers} R{cleanup.rafs} C
             {cleanup.canvases}
+          </div>
+
+          <div
+            className="studio-validation"
+            data-issue-count={validationIssues.length}
+            data-testid="studio-validation-status"
+          >
+            {validationIssues.length === 0
+              ? 'schema valid · JSON patch export ready'
+              : `schema issues ${validationIssues.length}`}
           </div>
         </section>
 
@@ -440,6 +503,30 @@ export function StudioView() {
           </section>
 
           <section>
+            <p className="rail-label">Schema</p>
+            <div className="studio-schema-panel" data-testid="studio-schema-panel">
+              {STUDIO_FORM_FIELDS.map((field) => (
+                <span key={field.field}>
+                  {field.label} · {field.type}
+                  {field.minimum !== undefined && field.maximum !== undefined
+                    ? ` ${field.minimum}-${field.maximum}`
+                    : ''}
+                  {field.maxLength !== undefined ? ` max ${field.maxLength}` : ''}
+                </span>
+              ))}
+            </div>
+            <div
+              className="studio-issue-list"
+              data-issue-count={validationIssues.length}
+              data-testid="studio-issue-list"
+            >
+              {validationIssues.length === 0
+                ? '오류 없음'
+                : validationIssues.map((issue) => `${issue.field}: ${issue.message}`).join('\n')}
+            </div>
+          </section>
+
+          <section>
             <p className="rail-label">Assets</p>
             <div className="studio-browser" data-testid="studio-asset-browser">
               {STUDIO_ASSETS.map((asset) => (
@@ -459,6 +546,17 @@ export function StudioView() {
                 </span>
               ))}
             </div>
+          </section>
+
+          <section>
+            <p className="rail-label">Export</p>
+            <textarea
+              className="studio-export-textarea"
+              readOnly
+              value={exportBundleText}
+              placeholder="Export JSON Patch를 누르면 draft patch bundle이 생성됩니다."
+              data-testid="studio-export-output"
+            />
           </section>
         </aside>
       </section>
